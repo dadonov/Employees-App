@@ -45,7 +45,7 @@
   line-height: 35px;
   font-size: 16px;
   color: #ffd700;
-  transition: 0.3 all;
+  transition: 0.3s all;
   transform: translateX(30px);
   opacity: 0;
 }
