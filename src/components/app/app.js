@@ -61,20 +61,22 @@ class App extends Component {
   };
 
   addItem = (name, salary) => {
-    this.setState(({ data }) => {
-      return {
-        data: [
-          ...data,
-          {
-            name: name,
-            salary: salary,
-            increase: false,
-            rise: false,
-            id: this.maxId++,
-          },
-        ],
-      };
-    });
+    if (name.length > 3 && salary > 0) {
+      this.setState(({ data }) => {
+        return {
+          data: [
+            ...data,
+            {
+              name: name,
+              salary: salary,
+              increase: false,
+              rise: false,
+              id: this.maxId++,
+            },
+          ],
+        };
+      });
+    }
   };
 
   render() {
