@@ -40,14 +40,14 @@ class EmployeesListItem extends Component {
         <input
           type="text"
           className="list-group-item-input"
-          defaultValue="1000$"
+          defaultValue={salary + ' $'}
         />
         <div className="d-flex justify-content-center align-items-center">
           <button onClick={this.onIncrease} className="btn-cookie btn-sm">
             <i className="fas fa-cookie"></i>
           </button>
           <button className="btn-trash btn-sm">
-            <i onClick={onDelete } className="fas fa-trash"></i>
+            <i onClick={onDelete} className="fas fa-trash"></i>
           </button>
           <i className="fas fa-star"></i>
         </div>

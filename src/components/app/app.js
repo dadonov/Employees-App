@@ -12,18 +12,30 @@ class App extends Component {
     super(props);
     this.state = {
       data: [
-        { name: 'Sergey', surname: 'Dadonov', increase: true, id: 1 },
-        { name: 'Igor', surname: 'Dadonov', increase: false, id: 2 },
-        { name: 'Yuliya', surname: 'Dadonova', increase: false, id: 3 },
+        { name: 'Sergey Dadonov', salary: 5000, increase: true, id: 1 },
+        { name: 'Igor Dadonov', salary: 1000, increase: false, id: 2 },
+        { name: 'Yuliya Dadonova', salary: 2000, increase: false, id: 3 },
       ],
     };
+    this.maxId = 0;
   }
 
   deleteItem = (id) => {
-    this.setState(({data}) => {
+    this.setState(({ data }) => {
       return {
-        data: data.filter((item) => item.id !== id)
-      }
+        data: data.filter((item) => item.id !== id),
+      };
+    });
+  };
+
+  addItem = (name, salary) => {
+    this.setState(({ data }) => {
+      return {
+        data: [
+          ...data,
+          { name: name, salary: salary, increase: false, id: this.maxId++ },
+        ],
+      };
     });
   };
 
@@ -38,7 +50,7 @@ class App extends Component {
           <AppFilter />
         </div>
         <EmployeesList onDelete={this.deleteItem} data={data} />
-        <EmployeesAddForm />
+        <EmployeesAddForm onSubmit={this.addItem} />
       </div>
     );
   }
