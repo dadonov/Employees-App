@@ -38,26 +38,12 @@ class App extends Component {
     this.maxId = 0;
   }
 
-  onToggleRise = (id) => {
+  onToggleProp = (id, prop) => {
     this.setState(({ data }) => {
       return {
         data: data.map((item) => {
           if (item.id === id) {
-            return { ...item, rise: !item.rise };
-          } else {
-            return item;
-          }
-        }),
-      };
-    });
-  };
-
-  onToggleIncrease = (id) => {
-    this.setState(({ data }) => {
-      return {
-        data: data.map((item) => {
-          if (item.id === id) {
-            return { ...item, increase: !item.increase };
+            return { ...item, [prop]: !item[prop] };
           } else {
             return item;
           }
@@ -108,8 +94,7 @@ class App extends Component {
         </div>
         <EmployeesList
           onDelete={this.deleteItem}
-          onIncrease={this.onToggleIncrease}
-          onRise={this.onToggleRise}
+          onToggleProp={this.onToggleProp}
           data={data}
         />
         <EmployeesAddForm onSubmit={this.addItem} />
