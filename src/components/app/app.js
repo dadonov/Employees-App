@@ -12,13 +12,59 @@ class App extends Component {
     super(props);
     this.state = {
       data: [
-        { name: 'Sergey Dadonov', salary: 5000, increase: true, id: 1 },
-        { name: 'Igor Dadonov', salary: 1000, increase: false, id: 2 },
-        { name: 'Yuliya Dadonova', salary: 2000, increase: false, id: 3 },
+        {
+          name: 'Sergey Dadonov',
+          salary: 5000,
+          increase: true,
+          rise: false,
+          id: 1,
+        },
+        {
+          name: 'Igor Dadonov',
+          salary: 1000,
+          increase: false,
+          rise: false,
+          id: 2,
+        },
+        {
+          name: 'Yuliya Dadonova',
+          salary: 2000,
+          increase: false,
+          rise: false,
+          id: 3,
+        },
       ],
     };
     this.maxId = 0;
   }
+
+  onToggleRise = (id) => {
+    this.setState(({ data }) => {
+      return {
+        data: data.map((item) => {
+          if (item.id === id) {
+            return { ...item, rise: !item.rise };
+          } else {
+            return item;
+          }
+        }),
+      };
+    });
+  };
+
+  onToggleIncrease = (id) => {
+    this.setState(({ data }) => {
+      return {
+        data: data.map((item) => {
+          if (item.id === id) {
+            return { ...item, increase: !item.increase };
+          } else {
+            return item;
+          }
+        }),
+      };
+    });
+  };
 
   deleteItem = (id) => {
     this.setState(({ data }) => {
@@ -33,7 +79,13 @@ class App extends Component {
       return {
         data: [
           ...data,
-          { name: name, salary: salary, increase: false, id: this.maxId++ },
+          {
+            name: name,
+            salary: salary,
+            increase: false,
+            rise: false,
+            id: this.maxId++,
+          },
         ],
       };
     });
@@ -41,15 +93,25 @@ class App extends Component {
 
   render() {
     const { data } = this.state;
+    const employeesQty = data.length;
+    const employeesOnRise = data.filter((item) => item.increase).length;
 
     return (
       <div className="app">
-        <AppInfo />
+        <AppInfo
+          employeesQty={employeesQty}
+          employeesOnRise={employeesOnRise}
+        />
         <div className="search-panel">
           <SearchPanel />
           <AppFilter />
         </div>
-        <EmployeesList onDelete={this.deleteItem} data={data} />
+        <EmployeesList
+          onDelete={this.deleteItem}
+          onIncrease={this.onToggleIncrease}
+          onRise={this.onToggleRise}
+          data={data}
+        />
         <EmployeesAddForm onSubmit={this.addItem} />
       </div>
     );
